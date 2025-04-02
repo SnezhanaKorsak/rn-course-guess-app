@@ -53,8 +53,13 @@ export const StartGameScreen = ({ onPickNumber }: Props) => {
         />
 
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetNumberHandler}>Reset</PrimaryButton>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          <View style={styles.btn}>
+            <PrimaryButton onPress={resetNumberHandler}>Reset</PrimaryButton>
+          </View>
+
+          <View style={styles.btn}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
       </View>
     </View>
@@ -95,5 +100,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     marginTop: 8,
+  },
+  btn: {
+    flex: 1,
   }
 });

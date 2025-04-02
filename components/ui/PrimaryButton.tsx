@@ -1,13 +1,25 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, Pressable, PressableProps, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Pressable,
+  PressableProps,
+  Text,
+  View,
+  ViewStyle,
+  StyleProp
+} from 'react-native';
 
 import { Colors } from '../../theme/colors';
 
-export const PrimaryButton = ({ children, ...rest }: PropsWithChildren<PressableProps>) => {
+type Props = PressableProps & {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const PrimaryButton = ({ children, style, ...rest }: PropsWithChildren<Props>) => {
   return (
     <View style={styles.buttonOverContainer}>
       <Pressable
-        style={({ pressed }) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer}
+        style={({ pressed }) => pressed ? [styles.buttonInnerContainer, styles.pressed, style] : [styles.buttonInnerContainer, style]}
         android_ripple={{ color: Colors.primaryButton }}
         {...rest}
       >
@@ -19,7 +31,6 @@ export const PrimaryButton = ({ children, ...rest }: PropsWithChildren<Pressable
 
 const styles = StyleSheet.create({
   buttonOverContainer: {
-    flex: 1,
     borderRadius: 28,
     margin: 4,
     overflow: 'hidden',
