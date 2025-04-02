@@ -1,15 +1,54 @@
-import { View, TextInput, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View, TextInput, StyleSheet, Alert } from 'react-native';
 
-import { PrimaryButton } from '../components/PrimaryButton';
+import { PrimaryButton } from '../components/ui/PrimaryButton';
 
-export const StartGameScreen = () => {
+import { Colors } from '../theme/colors';
+
+type Props = {
+  onPickNumber: (pickedNumber: number) => void;
+}
+
+export const StartGameScreen = ({ onPickNumber }: Props) => {
+  const [enteredNumber, setEnteredNumber] = useState('');
+
+  const inputNumberHandler = (value: string) => {
+    setEnteredNumber(value);
+  };
+
+  const resetNumberHandler = () => {
+    setEnteredNumber('');
+  };
+
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(enteredNumber);
+    const isValidateError = isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99;
+
+    if(isValidateError) {
+      Alert.alert(
+        'Invalid number!',
+        'Number should be between 1 and 99',
+        [{ text: 'Okay', style: 'destructive', onPress: resetNumberHandler }],
+      );
+      return;
+    }
+
+    onPickNumber(chosenNumber);
+  };
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} keyboardType="number-pad" maxLength={2} />
+      <TextInput
+        style={styles.input}
+        keyboardType="number-pad"
+        maxLength={2}
+        value={enteredNumber}
+        onChangeText={inputNumberHandler}
+      />
 
       <View style={styles.buttonContainer}>
-        <PrimaryButton>Reset</PrimaryButton>
-        <PrimaryButton>Confirm</PrimaryButton>
+        <PrimaryButton onPress={resetNumberHandler}>Reset</PrimaryButton>
+        <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
       </View>
     </View>
   );
@@ -21,11 +60,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 100,
     marginHorizontal: 24,
-    padding: 16,
-    backgroundColor: '#51062b',
+    padding: 20,
+    backgroundColor: Colors.primaryBcg,
     borderRadius: 8,
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.25,
@@ -36,8 +75,8 @@ const styles = StyleSheet.create({
     fontSize: 26,
     paddingVertical: 0,
     borderBottomWidth: 2,
-    borderBottomColor: '#ddb52f',
-    color: '#ddb52f',
+    borderBottomColor: Colors.accent,
+    color: Colors.accent,
     marginVertical: 8,
     fontWeight: 'bold',
     textAlign: 'center',
