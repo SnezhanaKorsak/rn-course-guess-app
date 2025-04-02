@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-course-goals-app",
-    "slug": "rn-course-goals-app",
+    "name": "rn-course-guess-app",
+    "slug": "rn-course-guess-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
