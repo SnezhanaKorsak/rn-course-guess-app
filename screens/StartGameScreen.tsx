@@ -4,6 +4,8 @@ import { View, TextInput, StyleSheet, Alert } from 'react-native';
 import { PrimaryButton } from '../components/ui/PrimaryButton';
 
 import { Colors } from '../theme/colors';
+import { Title } from '../components/ui/Title';
+import { InstructionText } from '../components/ui/InstructionText';
 
 type Props = {
   onPickNumber: (pickedNumber: number) => void;
@@ -24,7 +26,7 @@ export const StartGameScreen = ({ onPickNumber }: Props) => {
     const chosenNumber = parseInt(enteredNumber);
     const isValidateError = isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99;
 
-    if(isValidateError) {
+    if (isValidateError) {
       Alert.alert(
         'Invalid number!',
         'Number should be between 1 and 99',
@@ -37,28 +39,37 @@ export const StartGameScreen = ({ onPickNumber }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        keyboardType="number-pad"
-        maxLength={2}
-        value={enteredNumber}
-        onChangeText={inputNumberHandler}
-      />
+    <View style={styles.rootContainer}>
+      <Title title="Guess my Number" />
 
-      <View style={styles.buttonContainer}>
-        <PrimaryButton onPress={resetNumberHandler}>Reset</PrimaryButton>
-        <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+      <View style={styles.inputContainer}>
+        <InstructionText>Enter a Number</InstructionText>
+        <TextInput
+          style={styles.input}
+          keyboardType="number-pad"
+          maxLength={2}
+          value={enteredNumber}
+          onChangeText={inputNumberHandler}
+        />
+
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={resetNumberHandler}>Reset</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+        </View>
       </View>
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
+    marginTop: 100,
+  },
+  inputContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: 36,
     marginHorizontal: 24,
     padding: 20,
     backgroundColor: Colors.primaryBcg,

@@ -12,6 +12,7 @@ export const Title = ({ title }: Props) => {
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: 'open-sans-bold',
     fontSize: 26,
     fontWeight: 'bold',
     color: 'white',

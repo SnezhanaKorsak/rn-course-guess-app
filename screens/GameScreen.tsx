@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import { getRandomNumberBetween } from '../utils';
 import { Title } from '../components/ui/Title';
 import { NumberContainer } from '../components/game/NumberContainer';
 import { PrimaryButton } from '../components/ui/PrimaryButton';
+import { InstructionText } from '../components/ui/InstructionText';
+import { Colors } from '../theme/colors';
 
 type Props = {
   userNumber: number;
@@ -38,7 +41,6 @@ export const GameScreen = ({ userNumber, onGameOver }: Props) => {
 
     if (direction === 'lower') {
       maxBoundary = currentGuess;
-      console.log(maxBoundary);
     } else {
       minBoundary = currentGuess + 1;
     }
@@ -52,11 +54,15 @@ export const GameScreen = ({ userNumber, onGameOver }: Props) => {
       <Title title="Opponent's Guess" />
       <NumberContainer>{currentGuess}</NumberContainer>
 
-      <View>
-        <Text>Higher or lower?</Text>
+      <View style={styles.inputContainer}>
+        <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
         <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={nextGuessHandler('lower')}>-</PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler('greater')}>+</PrimaryButton>
+          <PrimaryButton onPress={nextGuessHandler('lower')}>
+            <Ionicons name="remove" size={24} color="white" />
+          </PrimaryButton>
+          <PrimaryButton onPress={nextGuessHandler('greater')}>
+            <Ionicons name="add" size={24} color="white" />
+          </PrimaryButton>
         </View>
       </View>
 
@@ -72,6 +78,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 40,
   },
+  inputContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 36,
+    padding: 20,
+    backgroundColor: Colors.primaryBcg,
+    borderRadius: 8,
+    elevation: 8,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.25,
+  },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
@@ -84,5 +103,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     marginTop: 8,
+  },
+  instructionText: {
+    marginBottom: 12,
   },
 });
