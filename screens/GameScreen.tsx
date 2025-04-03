@@ -99,6 +99,7 @@ export const GameScreen = ({ userNumber, onGameOver }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+   height: '100%',
     paddingHorizontal: 20,
     paddingVertical: 40,
   },
@@ -135,6 +136,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listContainer: {
-    padding: 16
+    flex: 1,
+    padding: 16,
+    paddingBottom: 0,
   }
 });
