@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonText: {
+    fontSize: 18,
     color: 'white',
     textAlign: 'center',
   },
